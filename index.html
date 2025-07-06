@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Test des 15 Étapes du Cheminement Spirituel - Psycelium</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+/* Style inspiré de Psycelium.org */
+:root {
+    --primary-color: #b8860b;
+    --secondary-color: #daa520;
+    --accent-color: #8b6914;
+    --text-color: #4a4a4a;
+    --bg-color: #f5f0e6;
+    --white: #ffffff;
+    --input-bg: #fafafa;
+    --input-border: #d4d4d4;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+}
+
+.test-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px;
+    background: var(--bg-color);
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.header h1 {
+    color: var(--primary-color);
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+h2 {
+    color: var(--primary-color);
+    font-size: 2em;
+    margin-bottom: 20px;
+    font-weight: 600;
+    text-align: center;
+}
+
+h3 {
+    color: var(--primary-color);
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+/* Formulaire de contact */
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-color);
+    font-weight: 400;
+    font-size: 18px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"] {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid var(--input-border);
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+    background-color: var(--input-bg);
+    color: var(--text-color);
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(184, 134, 11, 0.1);
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: flex-start;
+    margin: 30px 0;
+}
+
+.checkbox-group input[type="checkbox"] {
+    margin-right: 10px;
+    margin-top: 5px;
+    width: 18px;
+    height: 18px;
+}
+
+.checkbox-group label {
+    font-size: 16px;
+    color: var(--text-color);
+    line-height: 1.5;
+}
+
+/* Questions */
+.questions-container {
+    max-height: 600px;
+    overflow-y: auto;
+    padding: 30px;
+    border: none;
+    border-radius: 0;
+    background-color: var(--white);
+}
+
+.question {
+    margin-bottom: 30px;
+    padding: 25px;
+    background: var(--bg-color);
+    border-radius: 12px;
+    border: 1px solid rgba(184, 134, 11, 0.1);
+}
+
+.question-text {
+    font-size: 17px;
+    margin-bottom: 20px;
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.radio-group {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.radio-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 5px;
+}
+
+.radio-option input[type="radio"] {
+    margin-bottom: 5px;
+}
+
+.radio-option label {
+    font-size: 12px;
+    text-align: center;
+    color: #666;
+}
+
+/* Boutons */
+.button {
+    background: var(--accent-color);
+    color: var(--white);
+    padding: 18px 45px;
+    border: none;
+    border-radius: 35px;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: inline-block;
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(139, 105, 20, 0.3);
+}
+
+.button:hover {
+    background: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(139, 105, 20, 0.4);
+}
+
+.button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.button-container {
+    text-align: center;
+    margin-top: 30px;
+}
+
+/* Résultats */
+.results-container {
+    margin-top: 30px;
+}
+
+.chart-container {
+    max-width: 500px;
+    margin: 0 auto 40px;
+}
+
+.top-stages {
+    margin-top: 40px;
+}
+
+.stage-description {
+    margin-bottom: 30px;
+    padding: 30px;
+    background: var(--white);
+    border-left: 5px solid var(--primary-color);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(184, 134, 11, 0.1);
+}
+
+.stage-description h3 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-size: 1.4em;
+}
+
+.stage-description p {
+    color: var(--text-color);
+    line-height: 1.8;
+    text-align: justify;
+}
+
+.download-section {
+    margin: 40px 0;
+    padding: 30px;
+    background: linear-gradient(135deg, rgba(184, 134, 11, 0.1) 0%, rgba(218, 165, 32, 0.1) 100%);
+    border-radius: 12px;
+    text-align: center;
+}
+
+.download-section h3 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.download-section p {
+    color: var(--text-color);
+    margin-bottom: 20px;
+}
+
+.cta-section {
+    margin-top: 40px;
+    padding: 40px;
+    background: var(--primary-color);
+    color: var(--white);
+    border-radius: 12px;
+    text-align: center;
+}
+
+.cta-section h3 {
+    margin-bottom: 15px;
+    font-size: 1.8em;
+}
+
+.cta-section .button {
+    background: var(--white);
+    color: var(--primary-color);
+    margin: 10px;
+}
+
+.cta-section .button:hover {
+    background: var(--bg-color);
+    color: var(--accent-color);
+}
+
+/* Page 1 styling */
+#page1 {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+#page1 h2 {
+    color: var(--text-color);
+    font-size: 1.2em;
+    font-weight: 400;
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+/* Barre de progression */
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(184, 134, 11, 0.2);
+    border-radius: 4px;
+    margin-bottom: 30px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--primary-color);
+    border-radius: 4px;
+    transition: width 0.3s;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .radio-group {
+        flex-direction: column;
+    }
+    
+    .radio-option {
+        flex-direction: row;
+        justify-content: flex-start;
+        width: 100%;
+        margin: 5px 0;
+    }
+    
+    .radio-option label {
+        margin-left: 10px;
+        text-align: left;
+    }
+}
+
+.error {
+    color: #d32f2f;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.loading {
+    text-align: center;
+    padding: 20px;
+}
+
+.loading:after {
+    content: '...';
+    animation: dots 1.5s steps(4, end) infinite;
+}
+
+@keyframes dots {
+    0%, 20% { content: ''; }
+    40% { content: '.'; }
+    60% { content: '..'; }
+    80%, 100% { content: '...'; }
+}
+</style>
+</head>
+<body>
+
+<div class="test-container">
+    <div class="header">
+        <h1>Test Psycelium - Découvrez votre étape spirituelle</h1>
+        <p>90 questions pour identifier où vous en êtes dans votre parcours d'éveil</p>
+    </div>
+    
+    <hr style="border: none; border-top: 1px solid #ddd; margin: 30px 0;">
+    
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <!-- Page 1: Informations de contact -->
+    <div class="page active" id="page1">
+        <h2>Veuillez remplir ce formulaire pour recevoir vos résultats :</h2>
+        <form id="contactForm">
+            <div class="form-group">
+                <label for="prenom">Prénom :</label>
+                <input type="text" id="prenom" name="prenom" required>
+                <div class="error" id="prenomError"></div>
+            </div>
+            
+            <div class="form-group">
+                <label for="nom">Nom :</label>
+                <input type="text" id="nom" name="nom" required>
+                <div class="error" id="nomError"></div>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email :</label>
+                <input type="email" id="email" name="email" required>
+                <div class="error" id="emailError"></div>
+            </div>
+            
+            <div class="checkbox-group">
+                <input type="checkbox" id="consent" name="consent" required>
+                <label for="consent">
+                    J'accepte de recevoir les résultats et les communications de Psycelium.
+                </label>
+            </div>
+            <div class="error" id="consentError"></div>
+            
+            <div class="button-container">
+                <button type="submit" class="button">Voir mes résultats</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Page 2: Questions -->
+    <div class="page" id="page2">
+        <h2>Questionnaire</h2>
+        <p>Pour chaque affirmation, indiquez dans quelle mesure elle correspond à votre expérience actuelle.</p>
+        
+        <div class="questions-container" id="questionsContainer">
+            <!-- Les questions seront générées dynamiquement ici -->
+        </div>
+        
+        <div class="button-container">
+            <button class="button" onclick="submitTest()" id="submitButton" disabled>Voir mes résultats</button>
+        </div>
+    </div>
+
+    <!-- Page 3: Résultats -->
+    <div class="page" id="page3">
+        <h2>Vos résultats</h2>
+        
+        <div class="results-container">
+            <div class="chart-container">
+                <canvas id="resultsChart"></canvas>
+            </div>
+            
+            <div class="top-stages" id="topStages">
+                <!-- Les descriptions des étapes principales seront affichées ici -->
+            </div>
+            
+            <div class="download-section">
+                <h3>Approfondissez votre compréhension</h3>
+                <p>Téléchargez gratuitement notre guide complet "Cartographie des 15 étapes vers l'éveil" pour explorer en détail chaque phase du cheminement spirituel.</p>
+                <a href="https://psycelium.org/wp-content/uploads/2025/07/Ebook-Cartographie-des-etapes-vers-illumination.pdf" class="button" download>Télécharger le guide complet (PDF)</a>
+            </div>
+            
+            <div class="cta-section">
+                <h3>Poursuivez votre cheminement avec Psycelium</h3>
+                <p>Nos accompagnements personnalisés vous aident à progresser sur votre chemin spirituel</p>
+                <a href="https://psycelium.org/contacter-un-therapeute/" class="button" target="_blank">Contacter un thérapeute</a>
+                <a href="https://psycelium.org/formation-parcours-accompagnement-stage-seminaire-intensif-qui-suis-je/" class="button" target="_blank">Découvrir nos formations</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Configuration des questions et étapes
+const questions = [
+    // Étape 1
+    { id: 1, stage: 1, text: "Quand on me demande 'qui es-tu ?', je réponds spontanément par ma profession, mon statut familial ou mes rôles sociaux." },
+    { id: 2, stage: 1, text: "J'explique mes malaises existentiels par des circonstances extérieures (travail, argent, relations)." },
+    { id: 3, stage: 1, text: "Je me définis souvent par mes problèmes ou mes traits de caractère ('je suis stressé', 'je suis introverti')." },
+    { id: 4, stage: 1, text: "J'ai tendance à raconter les mêmes anecdotes sur moi-même, comme des histoires figées." },
+    { id: 5, stage: 1, text: "Après avoir parlé de moi, j'ai parfois l'impression d'avoir parlé d'un étranger." },
+    { id: 6, stage: 1, text: "J'utilise des formules toutes faites face aux questions profondes ('la vie est comme ça', 'il faut prendre les choses comme elles viennent')." },
+    
+    // Étape 2
+    { id: 7, stage: 2, text: "Je dévore des livres sur la spiritualité, la psychologie et la philosophie." },
+    { id: 8, stage: 2, text: "Je passe beaucoup de temps à regarder des vidéos ou écouter des podcasts sur la conscience et l'éveil." },
+    { id: 9, stage: 2, text: "Je compare différentes approches spirituelles et cherche 'la meilleure méthode'." },
+    { id: 10, stage: 2, text: "Je peux tenir des conversations érudites sur la conscience mais me sens toujours perdu dans ma vie quotidienne." },
+    { id: 11, stage: 2, text: "Je collectionne les citations profondes et les concepts spirituels." },
+    { id: 12, stage: 2, text: "Je passe plus de temps à lire sur la méditation qu'à méditer réellement." },
+    
+    // Étape 3
+    { id: 13, stage: 3, text: "J'ai des maux de tête récurrents ou des tensions chroniques sans cause médicale apparente." },
+    { id: 14, stage: 3, text: "Je ressens une fatigue profonde différente de la fatigue physique habituelle." },
+    { id: 15, stage: 3, text: "J'ai des vagues de tristesse ou d'angoisse qui surgissent sans raison apparente." },
+    { id: 16, stage: 3, text: "Je me sens parfois irritable avec mes proches pour des broutilles." },
+    { id: 17, stage: 3, text: "J'ai des difficultés de concentration ou des troubles de mémoire à court terme." },
+    { id: 18, stage: 3, text: "Je ressens un sentiment de vide ou d'absurdité dans mes activités habituelles." },
+    
+    // Étape 4
+    { id: 19, stage: 4, text: "J'ai cessé de chercher des réponses uniquement dans les livres pour explorer à l'intérieur." },
+    { id: 20, stage: 4, text: "Je me surprends à observer 'celui qui parle en moi' pendant les conversations." },
+    { id: 21, stage: 4, text: "Je joue au détective avec ma propre conscience ('qui regarde par mes yeux ?')." },
+    { id: 22, stage: 4, text: "J'essaie de 'saisir' mes pensées au moment où elles naissent." },
+    { id: 23, stage: 4, text: "J'ai des moments de silence mental spontané pendant des activités ordinaires." },
+    { id: 24, stage: 4, text: "Je sens une 'distance' avec mes pensées, comme si je les observais depuis un recul." },
+    
+    // Étape 5
+    { id: 25, stage: 5, text: "Je perçois parfois des auras ou des halos lumineux autour des gens ou des objets." },
+    { id: 26, stage: 5, text: "J'ai des sensations de courants de chaleur ou de fraîcheur le long de ma colonne vertébrale." },
+    { id: 27, stage: 5, text: "Je vis des synchronicités remarquables (penser à quelqu'un qui appelle, réponses qui apparaissent de manière inattendue)." },
+    { id: 28, stage: 5, text: "J'ai parfois l'impression que l'espace ou le temps se dilate ou se contracte." },
+    { id: 29, stage: 5, text: "Les animaux me regardent différemment et s'approchent de moi de manière inhabituelle." },
+    { id: 30, stage: 5, text: "J'entends parfois mon nom appelé alors que je suis seul." },
+    
+    // Étape 6
+    { id: 31, stage: 6, text: "Mes méditations semblent vides, sans pensées particulières ni sensations spéciales." },
+    { id: 32, stage: 6, text: "Mes questions spirituelles semblent tomber dans un puits sans fond, sans écho." },
+    { id: 33, stage: 6, text: "Je n'ai plus envie de lire de livres spirituels, ils me semblent soudain creux." },
+    { id: 34, stage: 6, text: "Je me réveille sans l'élan habituel, dans une sorte de neutralité plate." },
+    { id: 35, stage: 6, text: "Mes anciens problèmes ne me préoccupent plus, mais rien ne les remplace." },
+    { id: 36, stage: 6, text: "Je n'ai plus d'histoires à me raconter sur moi-même, plus de drames à analyser." },
+    
+    // Étape 7
+    { id: 37, stage: 7, text: "Je médite tous les jours mais c'est devenu automatique, sans l'élan du début." },
+    { id: 38, stage: 7, text: "Mes pratiques me semblent répétitives ('encore cette question qui suis-je ? qui ne mène nulle part')." },
+    { id: 39, stage: 7, text: "Je me demande si cette méthode fonctionne vraiment pour moi." },
+    { id: 40, stage: 7, text: "Je compare mes progrès à ceux d'autres personnes et me sens 'en retard'." },
+    { id: 41, stage: 7, text: "Mes insights d'autrefois me semblent maintenant banals ou superficiels." },
+    { id: 42, stage: 7, text: "Je suis tenté de changer de méthode ou de chercher un nouveau maître." },
+    
+    // Étape 8
+    { id: 43, stage: 8, text: "Je me réveille naturellement plus tôt, reposé après moins d'heures de sommeil." },
+    { id: 44, stage: 8, text: "Ma créativité explose : j'ai envie de peindre, écrire, composer." },
+    { id: 45, stage: 8, text: "Les gens me regardent différemment dans la rue, me font plus facilement des sourires." },
+    { id: 46, stage: 8, text: "J'ai des vagues d'énergie intenses qui remontent le long de ma colonne vertébrale." },
+    { id: 47, stage: 8, text: "Je ressens une passion dévorante pour la vie elle-même." },
+    { id: 48, stage: 8, text: "J'ai envie soudaine de changer de travail, de lieu de vie, de style de vie." },
+    
+    // Étape 9
+    { id: 49, stage: 9, text: "J'ai des colères primaires qui surgissent sans objet précis." },
+    { id: 50, stage: 9, text: "Je ressens un chagrin abyssal pour l'humanité entière." },
+    { id: 51, stage: 9, text: "J'ai une terreur existentielle qui me réveille à 3h du matin (peur de la mort, du vide)." },
+    { id: 52, stage: 9, text: "Des souvenirs d'enfance oubliés resurgissent avec une netteté troublante." },
+    { id: 53, stage: 9, text: "J'ai des pleurs incontrôlables qui semblent venir du plus profond de mes entrailles." },
+    { id: 54, stage: 9, text: "Je ressens une hypersensibilité aux émotions des autres." },
+    
+    // Étape 10
+    { id: 55, stage: 10, text: "Je me réveille naturellement calme, sans l'agitation mentale habituelle." },
+    { id: 56, stage: 10, text: "Les embouteillages, files d'attente et retards ne m'affectent plus." },
+    { id: 57, stage: 10, text: "J'observe les drames de mes proches avec un détachement bienveillant." },
+    { id: 58, stage: 10, text: "Je n'ai plus envie de méditer intensément, une présence naturelle suffit." },
+    { id: 59, stage: 10, text: "Le désir d'éveil a complètement disparu : 'pourquoi chercher ailleurs ? C'est déjà parfait ici.'" },
+    { id: 60, stage: 10, text: "Je n'ai plus de souffrance psychologique, juste l'acceptation de ce qui est." },
+    
+    // Étape 11
+    { id: 61, stage: 11, text: "En méditation, je réalise soudain : 'Je ne sais plus quoi faire.'" },
+    { id: 62, stage: 11, text: "Toutes mes techniques spirituelles me semblent dérisoires, comme des jouets d'enfant." },
+    { id: 63, stage: 11, text: "J'ai une fatigue existentielle profonde : 'J'en ai assez de tout cet effort spirituel.'" },
+    { id: 64, stage: 11, text: "Je lâche spontanément : 'Je n'y arrive pas, je ne peux pas.'" },
+    { id: 65, stage: 11, text: "Je reconnais : 'Ce moi fait partie du problème, il ne peut pas être la solution.'" },
+    { id: 66, stage: 11, text: "Je m'en remets à quelque chose de plus grand que moi : 'Que Ta volonté soit faite.'" },
+    
+    // Étape 12
+    { id: 67, stage: 12, text: "En regardant mon conjoint, je vois sa beauté essentielle au-delà de sa personnalité." },
+    { id: 68, stage: 12, text: "Dans le métro, je perçois la vulnérabilité et la nature divine des inconnus." },
+    { id: 69, stage: 12, text: "Un simple arbre peut m'émouvoir aux larmes par sa perfection silencieuse." },
+    { id: 70, stage: 12, text: "Ma tasse de café devient un objet de contemplation, révélant une beauté insoupçonnée." },
+    { id: 71, stage: 12, text: "Je sens viscéralement que tout est relié : ma respiration et celle des arbres." },
+    { id: 72, stage: 12, text: "J'ai une compassion spontanée pour tous les êtres, même ceux que je n'aime pas." },
+    
+    // Étape 13
+    { id: 73, stage: 13, text: "En buvant du thé, soudain plus personne ne boit le thé, il y a juste 'boire du thé' qui se produit." },
+    { id: 74, stage: 13, text: "La frontière entre 'moi' et le monde s'évapore complètement." },
+    { id: 75, stage: 13, text: "Je réalise : 'Je suis cette conscience pure dans laquelle tout apparaît et disparaît.'" },
+    { id: 76, stage: 13, text: "'Je ne suis pas dans le monde, le monde est en moi' devient une évidence." },
+    { id: 77, stage: 13, text: "J'ai des rires incontrôlables de reconnaissance : 'Mais bien sûr ! C'était si évident !'" },
+    { id: 78, stage: 13, text: "Toutes mes questions spirituelles se révèlent comme des jeux de l'esprit." },
+    
+    // Étape 14
+    { id: 79, stage: 14, text: "Les gens se sentent inexplicablement mieux en ma présence." },
+    { id: 80, stage: 14, text: "Mes paroles, même banales, ont un effet apaisant sur les autres." },
+    { id: 81, stage: 14, text: "Quand j'entre dans une pièce, l'atmosphère se modifie subtilement." },
+    { id: 82, stage: 14, text: "Mes mots viennent d'un endroit plus profond, plus authentique." },
+    { id: 83, stage: 14, text: "Je suis surpris de voir resurgir parfois d'anciens réflexes égotiques." },
+    { id: 84, stage: 14, text: "Certaines personnes sont magnétiquement attirées et viennent me chercher pour des conseils." },
+    
+    // Étape 15
+    { id: 85, stage: 15, text: "Je me réveille chaque matin avec la connaissance silencieuse de qui je suis vraiment." },
+    { id: 86, stage: 15, text: "Cette reconnaissance n'est plus extraordinaire, elle est devenue mon fond d'écran permanent." },
+    { id: 87, stage: 15, text: "Je vis simultanément comme un être humain et comme la conscience pure, sans conflit." },
+    { id: 88, stage: 15, text: "Mes mots, gestes et choix viennent d'un endroit profondément honnête." },
+    { id: 89, stage: 15, text: "Face aux défis, les réponses justes émergent naturellement de mon être." },
+    { id: 90, stage: 15, text: "Mon existence même devient un service, sans effort conscient." }
+];
+
+const stageNames = [
+    "Réponses Automatiques et Identifications Sociales",
+    "L'Analyse Mentale et la Philosophie",
+    "Inconfort et Résistances",
+    "Contact avec Votre Réalité Intérieure et la 'Poursuite'",
+    "Expériences Inhabituelles (Phénomènes)",
+    "Le Vide Apparent (Le 'No-Man's Land')",
+    "La Persévérance dans l'Incertitude (Le 'Long Plateau')",
+    "Libération d'Énergie Vitale et de Passion",
+    "Émotions Profondes, Douleur et Peurs Existentielles",
+    "La Paix Trompeuse (La 'Grotte de Satan')",
+    "L'Abandon Total (La Reddition)",
+    "Éveil de la Conscience Divine (Voir avec les Yeux de l'Âme)",
+    "L'État de Réalisation Directe (Le Satori)",
+    "Intégration et Rayonnement Naturel",
+    "Stabilisation et Vie Authentique"
+];
+
+const stageDescriptions = {
+    1: "Vous vous identifiez principalement à vos rôles sociaux, votre profession et votre histoire personnelle. Face aux questions existentielles, vous répondez automatiquement par vos étiquettes sociales : 'Je suis comptable', 'Je suis mère de famille', 'Je suis quelqu'un de stressé'. Ces identifications sont si automatiques que vous n'en avez même pas conscience. Vous expliquez systématiquement vos malaises existentiels par des circonstances extérieures : le travail qui vous épuise, le manque d'argent, les relations difficiles. Vous répétez les mêmes anecdotes sur vous-même, comme un disque rayé qui rejoue continuellement les mêmes morceaux. Cette étape est le point de départ naturel de toute introspection authentique. Elle n'est ni bonne ni mauvaise, c'est simplement là où la plupart d'entre nous commençons. L'invitation est d'observer consciemment ces identifications automatiques, de noter comment vous vous présentez, comment vous vous définissez. Commencez à vous poser la question révolutionnaire : 'Mais au-delà de tous ces rôles, de toutes ces histoires, de tous ces problèmes, qui suis-je vraiment ?' Cette simple question, posée avec sincérité, peut ouvrir la porte vers une exploration intérieure transformatrice.",
+    
+    2: "Votre quête spirituelle s'intensifie et vous cherchez des réponses avec une soif intellectuelle insatiable. Votre table de chevet croule sous les ouvrages de développement personnel, de spiritualité et de philosophie. Vous passez des heures sur YouTube à écouter des conférences sur la conscience, vous comparez les enseignements du bouddhisme avec ceux de l'Advaita Vedanta, vous analysez les différences entre Eckhart Tolle et Krishnamurti. Votre mental est en ébullition constante, créant des synthèses, des comparaisons, des théories sur la nature de la réalité. Paradoxalement, malgré toute cette érudition spirituelle, vous vous sentez toujours aussi perdu dans votre vie quotidienne. Vous pouvez disserter brillamment sur la non-dualité mais vous vous mettez toujours en colère dans les embouteillages. Cette accumulation de connaissances est précieuse - elle forme une base solide pour votre voyage. Mais elle peut devenir un piège sophistiqué si elle remplace l'expérience directe. L'invitation est d'équilibrer étude et pratique. Pour chaque heure passée à lire ou écouter, passez une heure en méditation silencieuse. Cessez progressivement de chercher LA méthode parfaite et commencez à pratiquer celle qui vous attire naturellement. La carte n'est pas le territoire - il est temps de marcher vraiment sur le chemin.",
+    
+    3: "Votre système psycho-corporel commence à réagir aux changements profonds qui s'opèrent en vous. Cette étape se manifeste par une variété de symptômes déstabilisants : maux de tête récurrents sans cause médicale, fatigue chronique différente de la fatigue physique habituelle, troubles digestifs, problèmes de peau, difficultés de concentration. Émotionnellement, vous traversez des montagnes russes : irritabilité soudaine pour des broutilles, vagues de tristesse sans raison apparente, angoisses qui surgissent du néant. Votre corps et votre psyché résistent aux transformations en cours. C'est comme si toutes vos tensions accumulées, vos traumas non résolus, vos peurs enfouies remontaient à la surface pour être libérés. Cette phase est inconfortable mais c'est un signe positif - elle indique que vous touchez enfin aux couches profondes de votre être. Les structures rigides de votre ego commencent à se fissurer. Au lieu de médicaliser ces symptômes ou de les fuir dans des distractions, l'invitation est de les accueillir comme des messagers. Développez une relation bienveillante avec votre inconfort. Respirez dans les zones de tension, dialoguez avec vos résistances, tenez un journal de vos symptômes. Cette traversée du désert est temporaire et nécessaire pour accéder à des espaces plus vastes de votre conscience.",
+    
+    4: "Un basculement fondamental s'opère : vous passez de la théorie à l'expérience directe. Les livres ne vous satisfont plus, vous voulez CONNAÎTRE par vous-même. La question 'Qui suis-je ?' n'est plus un concept philosophique mais une enquête vivante et passionnante. Vous vous surprenez à observer 'celui qui parle' pendant vos conversations, à chercher 'celui qui pense' derrière vos pensées. Cette investigation devient presque obsessionnelle : en faisant la vaisselle, vous vous demandez 'Qui fait la vaisselle ?', en marchant 'Qui marche ?'. Vous tentez de saisir vos pensées au moment précis de leur naissance, de remonter à leur source. Des moments de silence mental spontané vous surprennent - soudain, plus aucune pensée, juste la présence pure. Vous commencez à percevoir une 'distance' avec vos pensées et émotions, comme si vous les observiez depuis un espace plus vaste. Cette poursuite du chercheur est fascinante et transformatrice. Elle marque votre entrée dans la véritable spiritualité expérientielle. L'invitation est de maintenir cette investigation avec légèreté et curiosité, sans en faire un nouveau projet mental. Gardez l'esprit du débutant, explorez avec la fraîcheur d'un enfant qui découvre. N'oubliez pas que ce que vous cherchez pourrait être plus proche que votre propre respiration.",
+    
+    5: "Votre sensibilité s'affine considérablement et des phénomènes inhabituels commencent à se manifester. Vous percevez parfois des auras lumineuses autour des personnes, des animaux ou même des objets. Des sensations énergétiques parcourent votre corps : courants de chaleur ou de fraîcheur le long de la colonne vertébrale, picotements dans les mains ou le sommet du crâne, sensation d'expansion qui dépasse les limites de votre corps physique. Les synchronicités se multiplient de manière stupéfiante : vous pensez à quelqu'un et il vous appelle, vous vous posez une question et la réponse apparaît sur un panneau publicitaire. Le temps et l'espace semblent parfois se distordre. Les animaux vous regardent différemment, les enfants sont inexplicablement attirés vers vous. Ces expériences sont fascinantes et peuvent vous donner l'impression d'être 'spécial' ou 'élu'. C'est le piège de cette étape : s'attacher à ces phénomènes, les rechercher activement, mesurer votre progression spirituelle à leur intensité. En réalité, ce ne sont que des effets secondaires d'une conscience qui s'ouvre. L'invitation est d'observer ces phénomènes avec neutralité, sans rejet ni fascination. Notez-les dans un journal si vous voulez, mais revenez toujours à l'essentiel : 'Qui fait l'expérience de tout cela ?' Les vrais trésors ne sont pas dans les phénomènes mais dans la conscience qui les perçoit.",
+    
+    6: "Après l'effervescence des étapes précédentes, vous entrez dans un territoire déroutant : le vide apparent. Vos méditations deviennent plates, sans saveur particulière. Plus de pensées fascinantes à observer, plus de sensations énergétiques excitantes, plus d'insights révélateurs. Juste... rien. Un vide neutre et déstabilisant. Vos questions spirituelles tombent dans un puits sans fond, sans même l'écho d'une réponse. Les livres spirituels qui vous passionnaient vous semblent soudain creux et répétitifs. Vous vous réveillez dans une sorte de neutralité grise, sans dépression mais sans élan. C'est comme si tout le contenu de votre conscience s'était évaporé, laissant un espace vide et silencieux. Cette étape est profondément déstabilisante car votre mental n'a plus rien à quoi s'accrocher. Pas de problème à résoudre, pas d'expérience à analyser, pas de progression à mesurer. Pourtant, ce vide n'est pas un échec mais une grâce déguisée. C'est un nettoyage en profondeur, une mise à zéro nécessaire. Votre conscience se vide de ses contenus habituels pour que vous puissiez enfin percevoir la conscience elle-même. L'invitation est de vous détendre complètement dans ce vide, d'explorer sa texture, sa qualité. Qui perçoit ce vide ? Y a-t-il vraiment 'rien', ou y a-t-il une présence subtile qui observe ce 'rien' ?",
+    
+    7: "Vous entrez dans ce que les traditions appellent 'la nuit obscure de l'âme' ou 'le long plateau'. Votre pratique spirituelle continue par pure discipline, mais elle est devenue mécanique, sans âme. Vous méditez tous les jours mais c'est comme brosser vos dents - automatique et sans inspiration. La question 'Qui suis-je ?' que vous vous posez depuis des mois, peut-être des années, semble tomber dans le même vide, encore et encore. Vous commencez à douter sérieusement : 'Cette méthode fonctionne-t-elle vraiment ?', 'Suis-je sur la bonne voie ?', 'Peut-être que certaines personnes ne sont simplement pas faites pour s'éveiller'. Vous lisez des témoignages d'éveil spontané et vous vous demandez amèrement pourquoi cela ne vous arrive pas. Vous comparez vos 'non-progrès' avec les expériences apparemment extraordinaires des autres. Cette étape peut durer des mois, parfois des années. Elle teste votre sincérité la plus profonde : cherchez-vous la vérité pour elle-même ou pour les bénéfices qu'elle pourrait apporter ? C'est le moment où beaucoup abandonnent, changeant de méthode, de tradition, d'enseignant, dans une fuite perpétuelle. Pourtant, c'est précisément dans cette persévérance sans espoir que le travail le plus profond s'opère. Les identifications les plus subtiles, les plus tenaces, se dissolvent lentement dans le feu de cette pratique patiente. Continuez, sans rien attendre. La grâce vient à ceux qui persévèrent sans compter.",
+    
+    8: "Quelque chose se débloque soudainement dans votre système énergétique. C'est comme si un barrage cédait, libérant une puissante vague d'énergie vitale. Vous vous réveillez naturellement à 5h du matin, débordant d'énergie après seulement quelques heures de sommeil. Votre créativité explose : vous avez soudain envie de peindre, d'écrire, de danser, de chanter, de créer sous toutes les formes. Les gens sont magnétiquement attirés par votre présence, votre énergie rayonnante est palpable. Des vagues d'énergie intense remontent le long de votre colonne vertébrale, parfois si puissantes qu'elles vous réveillent la nuit. Vous ressentez une passion dévorante pour la vie elle-même - un coucher de soleil peut vous faire pleurer de joie, une simple fleur vous émerveille pendant des minutes. Cette libération énergétique s'accompagne souvent de désirs de changements radicaux : déménager, changer de carrière, transformer vos relations. L'énergie est si intense que vous pourriez être tenté de tout bouleverser impulsivement. Le défi est de canaliser cette puissance vers votre quête intérieure plutôt que de la disperser dans mille directions. Cette énergie est un carburant précieux pour propulser votre investigation spirituelle à un niveau supérieur. Utilisez-la sagement, avec discernement, en gardant le cap sur l'essentiel : la reconnaissance de votre vraie nature.",
+    
+    9: "Les portes du sous-sol émotionnel s'ouvrent grand et tout ce qui était enfoui remonte avec une force volcanique. Des colères primaires surgissent sans objet précis - vous pourriez avoir envie de hurler ou de tout casser sans raison apparente. Un chagrin océanique vous submerge, non pas une tristesse personnelle mais une compassion douloureuse pour toute la souffrance du monde. Des terreurs existentielles vous réveillent à 3h du matin : peur panique de la mort, de l'insignifiance, du néant, de la solitude cosmique. Des souvenirs traumatiques oubliés depuis des décennies resurgissent avec une netteté photographique. Vous pleurez des heures durant, des pleurs qui semblent venir des profondeurs de la terre, nettoyant des couches et des couches de douleur accumulée. Votre sensibilité émotionnelle devient extrême - vous 'absorbez' littéralement les émotions des autres, rendant les interactions sociales épuisantes. Cette phase de purification émotionnelle est l'une des plus difficiles du chemin. Elle demande un courage immense pour ne pas fuir dans des addictions ou des distractions. C'est le moment de créer un espace sécurisé pour accueillir ces tsunamis émotionnels : thérapie, groupe de soutien, pratiques corporelles pour décharger l'intensité. Rappelez-vous : chaque larme versée, chaque colère exprimée sainement, chaque peur traversée consciemment vous libère un peu plus. Vous n'êtes pas en train de régresser, vous êtes en train de vous purifier en profondeur.",
+    
+    10: "Après la tempête vient le calme. Une paix profonde et stable s'installe, comme si vous aviez trouvé un refuge définitif. Vous vous réveillez serein, sans l'agitation mentale qui vous accompagnait depuis toujours. Les drames du quotidien - embouteillages, conflits, imprévus - glissent sur vous sans laisser de trace. Vous observez les tourments de vos proches avec une compassion détachée, comme un adulte bienveillant regardant des enfants se disputer pour des jouets. Plus aucun conflit intérieur : vous acceptez ce qui est, simplement, naturellement. Le désir même d'éveil a disparu : pourquoi chercher ailleurs quand tout est déjà parfait ici ? Cette paix est réelle, profonde, transformatrice. Après tant de luttes, elle est un baume miraculeux. Le piège - et c'est pourquoi les maîtres zen l'appellent 'la grotte de Satan' - est de s'installer définitivement dans cette paix conditionnelle. Car c'est encore une paix 'de quelqu'un', maintenue par un 'moi' subtil qui dit : 'Je suis en paix.' Cette paix peut être perturbée par des circonstances extrêmes. Elle reste dans le domaine de l'expérience, aussi sublime soit-elle. L'invitation est de savourer pleinement cette paix tout en gardant une petite flamme de questionnement : 'Qui jouit de cette paix ? Cette sérénité est-elle vraiment inconditionnelle ? Y a-t-il quelque chose au-delà ?' Non par insatisfaction, mais par amour de la vérité totale.",
+    
+    11: "Vous arrivez au bout de vos ressources spirituelles. Toutes vos stratégies, techniques, efforts, pratiques vous apparaissent soudain dans leur futilité totale. C'est un moment de capitulation existentielle profonde. En méditation, vous réalisez avec une clarté bouleversante : 'Je ne sais plus quoi faire. Je ne peux pas faire l'éveil. Je ne peux pas me libérer moi-même.' Toutes vos techniques sophistiquées vous semblent maintenant comme des jouets d'enfant face à l'immensité du mystère. Une fatigue spirituelle immense vous envahit - non pas une fatigue physique, mais l'épuisement de celui qui a tout essayé et reconnaît son impuissance fondamentale. Cette reconnaissance n'est pas une défaite mais une victoire déguisée. Car vous réalisez enfin que le 'moi' qui veut s'éveiller fait partie intégrante du problème. Comment l'ego pourrait-il transcender l'ego ? Comment l'illusion pourrait-elle se libérer de l'illusion ? Dans cette reddition totale, vous vous en remettez à quelque chose de plus grand - appelez-le Vie, Conscience, Dieu, peu importe le nom. 'Que Ta volonté soit faite, pas la mienne.' Ce n'est pas une abdication passive mais une ouverture active à la grâce. Paradoxalement, c'est souvent dans cet abandon complet, dans cette reconnaissance de notre impuissance totale, que l'impossible devient soudain possible. Quand nous cessons de nager à contre-courant, le courant lui-même nous porte là où nous devons aller.",
+    
+    12: "Votre perception subit une transformation radicale et permanente. C'est comme si des écailles tombaient de vos yeux, révélant une dimension de beauté et de sacré qui était toujours là mais invisible à votre regard ordinaire. En regardant votre conjoint le matin, au-delà de ses traits fatigués et de ses habitudes agaçantes, vous percevez soudain son essence lumineuse, sa vulnérabilité touchante, son combat héroïque d'être humain cherchant le bonheur. Dans le métro, chaque visage devient une fenêtre sur l'infini - vous voyez la divinité déguisée en employé fatigué, en adolescent rebelle, en vieille dame solitaire. La nature révèle sa dimension sacrée : un simple arbre devient un maître de patience et de générosité, une montagne incarne la majesté éternelle, l'océan chante l'infini. Les objets les plus banals - votre tasse de café, une cuillère, un caillou - deviennent des supports de contemplation révélant la perfection dans l'ordinaire. Vous percevez viscéralement l'interconnexion de toute vie : votre respiration et celle des arbres, votre joie et celle d'un enfant à l'autre bout du monde. Cette vision s'accompagne d'une compassion universelle spontanée - non pas un sentiment émotionnel mais une reconnaissance directe que tous les êtres, sans exception, portent la même essence divine voilée par l'ignorance. Cette étape marque l'éveil du cœur spirituel, la vision avec 'les yeux de l'âme'. C'est une grâce immense qui transforme votre relation au monde.",
+    
+    13: "L'éclair de la réalisation vous frappe sans prévenir, souvent dans les circonstances les plus ordinaires. Vous êtes en train de boire votre thé et soudain - plus personne ne boit le thé. Il y a simplement 'boire du thé' qui se produit dans l'espace de la conscience, sans buveur séparé. Ou vous marchez dans la rue et instantanément, la frontière entre 'vous' et le monde s'évapore complètement - il n'y a plus de marcheur et de rue, juste la marche qui se déploie dans un champ unifié de conscience. Cette reconnaissance n'est pas une pensée, pas une intuition, pas même une expérience au sens habituel. C'est une évidence fulgurante, plus certaine que toute certitude : 'Je suis la conscience pure dans laquelle tout apparaît et disparaît.' Pas 'j'ai' une conscience, mais 'JE SUIS' la conscience elle-même. Le monde entier, y compris ce corps-mental que vous appeliez 'moi', apparaît EN vous, dans l'espace infini de votre vraie nature. Cette réalisation s'accompagne souvent de rires ou de larmes incontrôlables - rires devant l'évidence comique d'avoir cherché si longtemps ce que vous aviez toujours été, larmes de gratitude infinie devant la beauté et la simplicité de cette vérité. Toutes vos questions spirituelles s'évaporent instantanément. 'Qui suis-je ?' ne se pose plus car vous ÊTES la réponse vivante. C'est la fin de la recherche et le début de la célébration de Ce Qui Est.",
+    
+    14: "La foudre de la réalisation laisse place à un processus d'intégration délicat et progressif. L'intensité de l'expérience s'estompe mais la connaissance directe de votre vraie nature demeure, colorant subtilement chaque instant. Votre présence elle-même devient transformatrice - les gens se sentent inexplicablement apaisés en votre compagnie, vos paroles touchent directement le cœur sans que vous cherchiez à enseigner. Quand vous entrez dans une pièce, l'atmosphère se modifie imperceptiblement, comme si votre paix intérieure rayonnait naturellement. Vos mots viennent maintenant d'un lieu de silence profond, porteurs d'une authenticité qui touche. Mais l'intégration n'est pas toujours harmonieuse. Vous êtes parfois surpris de voir resurgir d'anciens schémas égotiques - irritation, jugement, peur - comme des vagues résiduelles après la tempête. Ces retours peuvent être déstabilisants : 'Ai-je vraiment réalisé quelque chose si je peux encore m'énerver ?' La clé est de comprendre que la réalisation est instantanée mais l'incarnation est progressive. Votre nature humaine continue de s'exprimer à travers vous, avec ses conditionnements et ses limitations. La différence est que vous n'êtes plus identifié à ces mouvements - ils traversent l'espace de votre conscience sans vous définir. Cette étape demande patience, humilité et compassion envers votre propre humanité. Vous apprenez l'art délicat d'être simultanément l'infini et le fini, l'éternel et le temporel.",
+    
+    15: "L'éveil n'est plus un événement extraordinaire mais votre état naturel, aussi normal que respirer. Vous vous réveillez chaque matin avec la connaissance silencieuse et inébranlable de qui vous êtes vraiment - non pas comme une pensée ou un souvenir, mais comme une évidence vivante. La reconnaissance de votre nature de conscience pure est devenue l'arrière-plan permanent de votre existence, présente dans la joie comme dans la peine, dans l'action comme dans le repos. Vous vivez pleinement votre humanité - avec ses défis, ses émotions, ses relations complexes - tout en restant ancré dans la dimension éternelle de votre être. Il n'y a plus de conflit entre le relatif et l'absolu, entre votre nature divine et votre expression humaine. Votre authenticité est devenue radicale : vous ne pouvez plus jouer de rôle, mentir, ou agir contre votre vérité intérieure. Chaque parole, chaque geste émane naturellement de votre être profond. Face aux défis de la vie, les réponses justes émergent spontanément, portées par une sagesse qui ne vient pas de votre mental mais de la source même de la vie. Votre existence entière devient un service silencieux - non pas par volonté de servir mais parce que votre simple présence éveillée est une bénédiction pour tous ceux qui vous approchent. Cette stabilisation n'est pas statique. Elle continue d'évoluer, de s'approfondir, révélant toujours de nouvelles facettes de ce mystère infini qu'est la conscience s'expérimentant elle-même à travers une forme humaine."
+};
+
+// Variables globales
+let shuffledQuestions = [];
+let answers = {};
+let currentPage = 1;
+
+// Initialisation
+document.addEventListener('DOMContentLoaded', function() {
+    setupContactForm();
+    shuffleQuestions();
+    updateProgressBar();
+});
+
+// Gestion du formulaire de contact
+function setupContactForm() {
+    const form = document.getElementById('contactForm');
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        if (validateContactForm()) {
+            saveContactInfo();
+            showPage(2);
+            renderQuestions();
+        }
+    });
+}
+
+function validateContactForm() {
+    let isValid = true;
+    
+    // Validation prénom
+    const prenom = document.getElementById('prenom').value.trim();
+    if (!prenom) {
+        document.getElementById('prenomError').textContent = 'Le prénom est requis';
+        isValid = false;
+    } else {
+        document.getElementById('prenomError').textContent = '';
+    }
+    
+    // Validation nom
+    const nom = document.getElementById('nom').value.trim();
+    if (!nom) {
+        document.getElementById('nomError').textContent = 'Le nom est requis';
+        isValid = false;
+    } else {
+        document.getElementById('nomError').textContent = '';
+    }
+    
+    // Validation email
+    const email = document.getElementById('email').value.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email) {
+        document.getElementById('emailError').textContent = 'L\'email est requis';
+        isValid = false;
+    } else if (!emailRegex.test(email)) {
+        document.getElementById('emailError').textContent = 'Email invalide';
+        isValid = false;
+    } else {
+        document.getElementById('emailError').textContent = '';
+    }
+    
+    // Validation consentement
+    const consent = document.getElementById('consent').checked;
+    if (!consent) {
+        document.getElementById('consentError').textContent = 'Vous devez accepter de recevoir les résultats';
+        isValid = false;
+    } else {
+        document.getElementById('consentError').textContent = '';
+    }
+    
+    return isValid;
+}
+
+function saveContactInfo() {
+    const contactInfo = {
+        prenom: document.getElementById('prenom').value.trim(),
+        nom: document.getElementById('nom').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        consent: document.getElementById('consent').checked
+    };
+    
+    localStorage.setItem('psyceliumTestContact', JSON.stringify(contactInfo));
+    
+    // Envoyer à Brevo
+    sendToBrevo(contactInfo);
+}
+
+// Mélanger les questions
+function shuffleQuestions() {
+    shuffledQuestions = [...questions].sort(() => Math.random() - 0.5);
+}
+
+// Afficher les questions
+function renderQuestions() {
+    const container = document.getElementById('questionsContainer');
+    container.innerHTML = '';
+    
+    shuffledQuestions.forEach((question, index) => {
+        const questionDiv = document.createElement('div');
+        questionDiv.className = 'question';
+        questionDiv.innerHTML = `
+            <div class="question-text">${index + 1}. ${question.text}</div>
+            <div class="radio-group">
+                <div class="radio-option">
+                    <input type="radio" id="q${question.id}_1" name="q${question.id}" value="1" onchange="checkAnswers()">
+                    <label for="q${question.id}_1">Jamais</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" id="q${question.id}_2" name="q${question.id}" value="2" onchange="checkAnswers()">
+                    <label for="q${question.id}_2">Rarement</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" id="q${question.id}_3" name="q${question.id}" value="3" onchange="checkAnswers()">
+                    <label for="q${question.id}_3">Parfois</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" id="q${question.id}_4" name="q${question.id}" value="4" onchange="checkAnswers()">
+                    <label for="q${question.id}_4">Souvent</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" id="q${question.id}_5" name="q${question.id}" value="5" onchange="checkAnswers()">
+                    <label for="q${question.id}_5">Toujours</label>
+                </div>
+            </div>
+        `;
+        container.appendChild(questionDiv);
+    });
+}
+
+// Vérifier si toutes les questions sont répondues
+function checkAnswers() {
+    const totalQuestions = shuffledQuestions.length;
+    let answeredQuestions = 0;
+    
+    shuffledQuestions.forEach(question => {
+        const selectedAnswer = document.querySelector(`input[name="q${question.id}"]:checked`);
+        if (selectedAnswer) {
+            answers[question.id] = {
+                stage: question.stage,
+                value: parseInt(selectedAnswer.value)
+            };
+            answeredQuestions++;
+        }
+    });
+    
+    const submitButton = document.getElementById('submitButton');
+    if (answeredQuestions === totalQuestions) {
+        submitButton.disabled = false;
+    } else {
+        submitButton.disabled = true;
+    }
+    
+    // Mettre à jour la barre de progression
+    const progress = (answeredQuestions / totalQuestions) * 100;
+    document.getElementById('progressFill').style.width = `${progress}%`;
+}
+
+// Soumettre le test
+function submitTest() {
+    const scores = calculateScores();
+    const topStages = getTopStages(scores);
+    
+    showPage(3);
+    displayResults(scores, topStages);
+    sendResults(scores, topStages);
+}
+
+// Calculer les scores
+function calculateScores() {
+    const scores = {};
+    
+    // Initialiser les scores
+    for (let i = 1; i <= 15; i++) {
+        scores[i] = 0;
+    }
+    
+    // Calculer les scores pour chaque étape
+    Object.values(answers).forEach(answer => {
+        scores[answer.stage] += answer.value;
+    });
+    
+    return scores;
+}
+
+// Obtenir les 3 principales étapes
+function getTopStages(scores) {
+    const sortedStages = Object.entries(scores)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 3)
+        .map(([stage, score]) => ({
+            stage: parseInt(stage),
+            score: score,
+            percentage: Math.round((score / 30) * 100)
+        }));
+    
+    return sortedStages;
+}
+
+// Afficher les résultats
+function displayResults(scores, topStages) {
+    // Créer le graphique radar
+    createRadarChart(scores);
+    
+    // Afficher les descriptions des principales étapes
+    const topStagesDiv = document.getElementById('topStages');
+    topStagesDiv.innerHTML = '<h3>Vos 3 étapes principales</h3>';
+    
+    topStages.forEach((stageInfo, index) => {
+        const stageDiv = document.createElement('div');
+        stageDiv.className = 'stage-description';
+        stageDiv.innerHTML = `
+            <h3>${index + 1}. Étape ${stageInfo.stage} : ${stageNames[stageInfo.stage - 1]} (${stageInfo.percentage}%)</h3>
+            <p>${stageDescriptions[stageInfo.stage]}</p>
+        `;
+        topStagesDiv.appendChild(stageDiv);
+    });
+}
+
+// Créer le graphique radar
+function createRadarChart(scores) {
+    const ctx = document.getElementById('resultsChart').getContext('2d');
+    
+    const data = {
+        labels: stageNames,
+        datasets: [{
+            label: 'Votre profil spirituel',
+            data: Object.values(scores),
+            backgroundColor: 'rgba(184, 134, 11, 0.2)',
+            borderColor: 'rgba(184, 134, 11, 1)',
+            borderWidth: 2,
+            pointBackgroundColor: 'rgba(184, 134, 11, 1)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgba(184, 134, 11, 1)'
+        }]
+    };
+    
+    const config = {
+        type: 'radar',
+        data: data,
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            scales: {
+                r: {
+                    beginAtZero: true,
+                    max: 30,
+                    ticks: {
+                        stepSize: 6
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const percentage = Math.round((context.raw / 30) * 100);
+                            return `${context.label}: ${context.raw}/30 (${percentage}%)`;
+                        }
+                    }
+                }
+            }
+        }
+    };
+    
+    new Chart(ctx, config);
+}
+
+// Changer de page
+function showPage(pageNumber) {
+    document.querySelectorAll('.page').forEach(page => {
+        page.classList.remove('active');
+    });
+    
+    document.getElementById(`page${pageNumber}`).classList.add('active');
+    currentPage = pageNumber;
+    updateProgressBar();
+    
+    // Scroll vers le haut
+    window.scrollTo(0, 0);
+}
+
+// Mettre à jour la barre de progression
+function updateProgressBar() {
+    let progress = 0;
+    
+    if (currentPage === 1) {
+        progress = 0;
+    } else if (currentPage === 2) {
+        const totalQuestions = shuffledQuestions.length;
+        const answeredQuestions = Object.keys(answers).length;
+        progress = 33 + (answeredQuestions / totalQuestions) * 34;
+    } else if (currentPage === 3) {
+        progress = 100;
+    }
+    
+    document.getElementById('progressFill').style.width = `${progress}%`;
+}
+
+// Envoyer les données à Brevo
+async function sendToBrevo(contactInfo) {
+    const apiKey = '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';
+    const listId = 18;
+    
+    try {
+        const response = await fetch('https://api.brevo.com/v3/contacts', {
+            method: 'POST',
+            headers: {
+                'accept': 'application/json',
+                'content-type': 'application/json',
+                'api-key': apiKey
+            },
+            body: JSON.stringify({
+                email: contactInfo.email,
+                attributes: {
+                    PRENOM: contactInfo.prenom,
+                    NOM: contactInfo.nom
+                },
+                listIds: [listId],
+                updateEnabled: true
+            })
+        });
+        
+        if (!response.ok) {
+            console.error('Erreur Brevo:', response.status);
+        }
+    } catch (error) {
+        console.error('Erreur lors de l\'envoi à Brevo:', error);
+    }
+}
+
+// Envoyer les résultats par email
+async function sendResults(scores, topStages) {
+    const contactInfo = JSON.parse(localStorage.getItem('psyceliumTestContact'));
+    
+    // Préparer le contenu de l'email
+    let emailContent = `
+        <h2>Vos résultats du test des 15 Étapes du Cheminement Spirituel</h2>
+        <p>Bonjour ${contactInfo.prenom},</p>
+        <p>Merci d'avoir complété notre test. Voici vos résultats :</p>
+        
+        <h3>Vos 3 étapes principales :</h3>
+    `;
+    
+    topStages.forEach((stageInfo, index) => {
+        emailContent += `
+            <h4>${index + 1}. Étape ${stageInfo.stage} : ${stageNames[stageInfo.stage - 1]} (${stageInfo.percentage}%)</h4>
+            <p>${stageDescriptions[stageInfo.stage]}</p>
+        `;
+    });
+    
+    emailContent += `
+        <h3>Pour aller plus loin</h3>
+        <p>Téléchargez notre guide complet "Cartographie des 15 étapes vers l'éveil" pour une exploration approfondie de chaque phase :</p>
+        <p><a href="https://psycelium.org/wp-content/uploads/2025/07/Ebook-Cartographie-des-etapes-vers-illumination.pdf">Télécharger le guide complet (PDF)</a></p>
+        
+        <h3>Poursuivez votre cheminement</h3>
+        <p>Nos accompagnements personnalisés peuvent vous aider à progresser sur votre chemin spirituel.</p>
+        <p>
+            <a href="https://psycelium.org/contacter-un-therapeute/">Contacter un thérapeute</a> | 
+            <a href="https://psycelium.org/formation-parcours-accompagnement-stage-seminaire-intensif-qui-suis-je/">Découvrir nos formations</a>
+        </p>
+        <p>À bientôt,<br>L'équipe Psycelium</p>
+    `;
+    
+    // Ici, vous devrez implémenter l'envoi réel de l'email via votre backend
+    // ou un service d'email transactionnel
+    console.log('Email à envoyer:', emailContent);
+}
+</script>
+
+</body>
+</html>
